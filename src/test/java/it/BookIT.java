@@ -60,6 +60,7 @@ public class BookIT {
 
 		book.setPublished(new Date());
 		em.persist(book);
+		em.flush();
 		em.refresh(book); // we just want to trigger postLoad
 
 		Book book2 = em.find(Book.class, 1L);
@@ -68,6 +69,7 @@ public class BookIT {
 		assertThat(book2.getTitle(), is(book.getTitle()));
 
 		em.remove(book2);
+		em.flush();
 	}
 
 	@Test(timeout = 10000, expected = PersistenceException.class)
